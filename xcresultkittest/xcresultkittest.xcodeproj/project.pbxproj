@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DC72966528BA5F6D00C8DA7D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC72966428BA5F6D00C8DA7D /* main.swift */; };
+		DC72966528BA5F6D00C8DA7D /* XCResultKitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC72966428BA5F6D00C8DA7D /* XCResultKitTest.swift */; };
+		DC93435328CE3FD2002DAF94 /* Execute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC93435228CE3FD2002DAF94 /* Execute.swift */; };
+		DCDF42F728CE5E1C00D27665 /* XcodeBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDF42F628CE5E1C00D27665 /* XcodeBuild.swift */; };
+		DCDF42F928CE8F6E00D27665 /* BuildSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDF42F828CE8F6E00D27665 /* BuildSetting.swift */; };
+		DCDF42FB28CEC48200D27665 /* DerivedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDF42FA28CEC48200D27665 /* DerivedData.swift */; };
+		DCDF42FE28CEC63E00D27665 /* XCResultKit in Frameworks */ = {isa = PBXBuildFile; productRef = DCDF42FD28CEC63E00D27665 /* XCResultKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +29,12 @@
 
 /* Begin PBXFileReference section */
 		DC72966128BA5F6D00C8DA7D /* xcresultkittest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = xcresultkittest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC72966428BA5F6D00C8DA7D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		DC72966428BA5F6D00C8DA7D /* XCResultKitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCResultKitTest.swift; sourceTree = "<group>"; };
+		DC93435228CE3FD2002DAF94 /* Execute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Execute.swift; sourceTree = "<group>"; };
+		DCDF42F528CE5CCC00D27665 /* XCResultKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = XCResultKit; path = ../../XCResultKit; sourceTree = "<group>"; };
+		DCDF42F628CE5E1C00D27665 /* XcodeBuild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeBuild.swift; sourceTree = "<group>"; };
+		DCDF42F828CE8F6E00D27665 /* BuildSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildSetting.swift; sourceTree = "<group>"; };
+		DCDF42FA28CEC48200D27665 /* DerivedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DerivedData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCDF42FE28CEC63E00D27665 /* XCResultKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,8 +52,10 @@
 		DC72965828BA5F6D00C8DA7D = {
 			isa = PBXGroup;
 			children = (
+				DCDF42F428CE5CCC00D27665 /* Packages */,
 				DC72966328BA5F6D00C8DA7D /* xcresultkittest */,
 				DC72966228BA5F6D00C8DA7D /* Products */,
+				DCDF42FC28CEC63E00D27665 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,9 +70,28 @@
 		DC72966328BA5F6D00C8DA7D /* xcresultkittest */ = {
 			isa = PBXGroup;
 			children = (
-				DC72966428BA5F6D00C8DA7D /* main.swift */,
+				DC72966428BA5F6D00C8DA7D /* XCResultKitTest.swift */,
+				DC93435228CE3FD2002DAF94 /* Execute.swift */,
+				DCDF42F628CE5E1C00D27665 /* XcodeBuild.swift */,
+				DCDF42F828CE8F6E00D27665 /* BuildSetting.swift */,
+				DCDF42FA28CEC48200D27665 /* DerivedData.swift */,
 			);
 			path = xcresultkittest;
+			sourceTree = "<group>";
+		};
+		DCDF42F428CE5CCC00D27665 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				DCDF42F528CE5CCC00D27665 /* XCResultKit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		DCDF42FC28CEC63E00D27665 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -78,6 +110,9 @@
 			dependencies = (
 			);
 			name = xcresultkittest;
+			packageProductDependencies = (
+				DCDF42FD28CEC63E00D27665 /* XCResultKit */,
+			);
 			productName = xcresultkittest;
 			productReference = DC72966128BA5F6D00C8DA7D /* xcresultkittest */;
 			productType = "com.apple.product-type.tool";
@@ -120,7 +155,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC72966528BA5F6D00C8DA7D /* main.swift in Sources */,
+				DC72966528BA5F6D00C8DA7D /* XCResultKitTest.swift in Sources */,
+				DCDF42FB28CEC48200D27665 /* DerivedData.swift in Sources */,
+				DCDF42F728CE5E1C00D27665 /* XcodeBuild.swift in Sources */,
+				DC93435328CE3FD2002DAF94 /* Execute.swift in Sources */,
+				DCDF42F928CE8F6E00D27665 /* BuildSetting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +323,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DCDF42FD28CEC63E00D27665 /* XCResultKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = XCResultKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DC72965928BA5F6D00C8DA7D /* Project object */;
 }
