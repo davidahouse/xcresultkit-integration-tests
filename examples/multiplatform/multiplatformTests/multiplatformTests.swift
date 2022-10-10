@@ -17,18 +17,38 @@ final class multiplatformTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func testExampleSuccess() throws {
+        XCTAssertTrue(true, "this test is successful")
+    }
+    
+    func testExampleFailed() throws {
+        XCTAssertTrue(false, "this test is supposed to fail")
+    }
+    
+    func testExampleSkipped() throws {
+        XCTSkip("This test is skipped on purpose so we can capture at least one skipped test")
+    }
+    
+    func testExpectedFailure() throws {
+        let thingThatFails: Bool = false
+        XCTExpectFailure("Working on a fix for this problem.")
+        XCTAssertTrue(thingThatFails, "This is not working right now.")
+    }
+    
+    func testExpectedFailureFails() throws {
+        let thingThatFails: Bool = true
+        XCTExpectFailure("Working on a fix for this problem.")
+        XCTAssertTrue(thingThatFails, "This is not working right now.")
     }
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         measure {
-            // Put the code you want to measure the time of here.
+            var total = 0
+            for i in 1...10 {
+                total += i
+            }
+            XCTAssertGreaterThan(total, 0)
         }
     }
 

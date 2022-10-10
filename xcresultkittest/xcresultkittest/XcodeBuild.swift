@@ -97,12 +97,20 @@ class XcodeBuild {
         print("got results: \(resultString ?? "")")
     }
     
-    func test(scheme: String, configuration: String, platform: String) async throws {
+    func test(scheme: String, configuration: String, platform: String, derivedDataPath: String?) async throws {
+
+        let ddPath: String = {
+            if let path = derivedDataPath {
+                return "-derivedDataPath \"\(path)\""
+            } else {
+                return ""
+            }
+        }()
         
         let arguments: [String] = [
             "-l",
             "-c",
-            "xcodebuild \(buildType.xcodebuildParam()) -scheme \(scheme) -configuration \(configuration) -destination \"platform=\(platform)\" test"
+            "xcodebuild \(buildType.xcodebuildParam()) -scheme \"\(scheme)\" -configuration \"\(configuration)\" -destination \"platform=\(platform)\" \(ddPath) test"
         ]
         
         let results = execute(path: "/bin/sh", arguments)

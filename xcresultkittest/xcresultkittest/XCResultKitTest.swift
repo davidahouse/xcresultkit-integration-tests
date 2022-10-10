@@ -16,105 +16,77 @@ import XCResultKit
 struct MainApp {
     static func main() async {
         
-        print("--- XCResultKit Test Harness ---")
-        
-        let current = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        let exampleproject = current.appendingPathComponent("examples")
-            .appendingPathComponent("multiplatform")
-            .appendingPathComponent("multiplatform.xcodeproj")
-            
-        print("Project is found here: \(exampleproject)")
-        let xcb = XcodeBuild(project: exampleproject)
-        var ddPath: String?
+        // Need to create /out and /tmp folders
         do {
-            let settings = try await xcb.buildSettings(scheme: "multiplatform", configuration: "Debug")
-            print("Found \(settings.count) settings")
-            ddPath = settings.filter { $0.name == "BUILD_DIR" }.first?.value
+            try await emptyFolder(named: "tmp")
+            try await createFolder(named: "tmp")
+            try await emptyFolder(named: "out")
+            try await createFolder(named: "out")
         } catch {
-            print("Got an error from settings...")
-        }
-            
-        print("--- got the settings ---")
-        
-        do {
-            try await xcb.clean(scheme: "multiplatform", configuration: "Debug")
-        } catch {
-            print("Error from clean: \(error)")
-        }
-        
-        print("--- clean finished ---")
-        
-        do {
-            try await xcb.test(scheme: "multiplatform", configuration: "Debug", platform: "iOS Simulator,name=iPhone 13")
-        } catch {
-            print("Error from test: \(error)")
-        }
-        
-        print("--- test finished ---")
-        
-        
-        guard let derivedDataPath = ddPath else {
-            print("Unable to find dd path")
+            print("Error cleaning up tmp folder")
             return
         }
         
-        let rootPath = URL(fileURLWithPath: derivedDataPath).deletingLastPathComponent().deletingLastPathComponent()
+        print("--- XCResultKit Test Harness ---")
         
-        let derivedData = DerivedData()
-        derivedData.debug = true
-        derivedData.root = true
-        derivedData.location = rootPath
-        guard let resultKit = derivedData.recentResultFile() else {
-            print("Unable to find XCResult file!")
-            exit(1)
-        }
-
-        print("--- found at least one xcresult file")
-
-        guard let invocationRecord = resultKit.getInvocationRecord() else {
-            print("Unable to find invocation record in XCResult file!")
-            exit(1)
-        }
-
-        var testRunSummaries: [ActionTestPlanRunSummary] = []
-        for action in invocationRecord.actions {
-            if let testRef = action.actionResult.testsRef {
-                if let runSummaries = resultKit.getTestPlanRunSummaries(id: testRef.id) {
-                    for summary in runSummaries.summaries {
-                        testRunSummaries.append(summary)
-                    }
-                }
-            }
-        }
-
-        print("--- found \(testRunSummaries.count) test run summaries")
+        let tests = [
+            TestInfo(name: "stampede-app",
+                     repoURL: URL(string: "git@github.com:davidahouse/stampede-app.git")!,
+                     branch: "main",
+                     project: "Stampede/Stampede.xcodeproj", scheme: "Stampede Fixtures",
+                     configuration: nil,
+                     platform: "iOS Simulator,name=iPhone 13",
+                     expectedSuccessfulTests: 108,
+                     expectedFailedTests: 0,
+                     expectedSkippedTests: 0
+                    ),
+            TestInfo(name: "XCTestExamples",
+                     repoURL: URL(string: "git@github.com:davidahouse/XCTestExamples.git")!,
+                     branch: "main",
+                     project: "XCTestExamples/XCTestExamples.xcodeproj",
+                     scheme: "XCTestExamples",
+                     configuration: nil,
+                     platform: "iOS Simulator,name=iPhone 13",
+                     expectedSuccessfulTests: 6,
+                     expectedFailedTests: 2,
+                     expectedSkippedTests: 1)
+        ]
         
-        let tests = gatherTests(summaries: testRunSummaries)
-        print("--- found \(tests.count) tests!")
+        print("--- Found \(tests.count) tests to execute ---")
         
         for test in tests {
-            print("-> \(test.summaryRef?.id ?? "")")
+            
+            let executor = TestExecutor(info: test)
+            do {
+                try await executor.execute()
+            } catch {
+                print("Error executing test: \(error)")
+            }
         }
     }
     
-    static func gatherTests(summaries: [ActionTestPlanRunSummary]) -> [ActionTestMetadata] {
-        var foundTests = [ActionTestMetadata]()
-        for summary in summaries {
-            for testableSummary in summary.testableSummaries {
-                print("URL: \(testableSummary.identifierURL ?? "")")
-                for testGroup in testableSummary.tests {
-                    foundTests += gatherTests(group: testGroup)
-                }
-            }
-        }
-        return foundTests
+    static func emptyFolder(named: String) async throws {
+        print("--- emptying out the \(named) folder")
+        
+        let arguments: [String] = [
+            "-l",
+            "-c",
+            "rm -rf ./\(named)/"
+        ]
+        
+        _ = xcresultkittest.execute(path: "/bin/sh", arguments)
+    }
+    
+    static func createFolder(named: String) async throws {
+        print("--- emptying out the \(named) folder")
+        
+        let arguments: [String] = [
+            "-l",
+            "-c",
+            "mkdir \(named)"
+        ]
+        
+        _ = xcresultkittest.execute(path: "/bin/sh", arguments)
     }
 
-    static func gatherTests(group: ActionTestSummaryGroup) -> [ActionTestMetadata] {
-        var tests = group.subtests
-        for test in group.subtests {
-            tests.append(test)
-        }
-        return tests
-    }
 }

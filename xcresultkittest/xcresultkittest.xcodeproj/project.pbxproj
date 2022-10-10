@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC65F4B328F200750011DACD /* TestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC65F4B228F200750011DACD /* TestInfo.swift */; };
+		DC65F4B528F204E50011DACD /* TestExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC65F4B428F204E50011DACD /* TestExecutor.swift */; };
+		DC65F4B728F320D10011DACD /* TestSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC65F4B628F320D10011DACD /* TestSummary.swift */; };
+		DC65F4B928F3AA880011DACD /* DetailsFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC65F4B828F3AA880011DACD /* DetailsFile.swift */; };
 		DC72966528BA5F6D00C8DA7D /* XCResultKitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC72966428BA5F6D00C8DA7D /* XCResultKitTest.swift */; };
 		DC93435328CE3FD2002DAF94 /* Execute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC93435228CE3FD2002DAF94 /* Execute.swift */; };
 		DCDF42F728CE5E1C00D27665 /* XcodeBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDF42F628CE5E1C00D27665 /* XcodeBuild.swift */; };
@@ -28,6 +32,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DC65F4B228F200750011DACD /* TestInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfo.swift; sourceTree = "<group>"; };
+		DC65F4B428F204E50011DACD /* TestExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExecutor.swift; sourceTree = "<group>"; };
+		DC65F4B628F320D10011DACD /* TestSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSummary.swift; sourceTree = "<group>"; };
+		DC65F4B828F3AA880011DACD /* DetailsFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsFile.swift; sourceTree = "<group>"; };
 		DC72966128BA5F6D00C8DA7D /* xcresultkittest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = xcresultkittest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC72966428BA5F6D00C8DA7D /* XCResultKitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCResultKitTest.swift; sourceTree = "<group>"; };
 		DC93435228CE3FD2002DAF94 /* Execute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Execute.swift; sourceTree = "<group>"; };
@@ -75,6 +83,10 @@
 				DCDF42F628CE5E1C00D27665 /* XcodeBuild.swift */,
 				DCDF42F828CE8F6E00D27665 /* BuildSetting.swift */,
 				DCDF42FA28CEC48200D27665 /* DerivedData.swift */,
+				DC65F4B228F200750011DACD /* TestInfo.swift */,
+				DC65F4B428F204E50011DACD /* TestExecutor.swift */,
+				DC65F4B628F320D10011DACD /* TestSummary.swift */,
+				DC65F4B828F3AA880011DACD /* DetailsFile.swift */,
 			);
 			path = xcresultkittest;
 			sourceTree = "<group>";
@@ -156,6 +168,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC72966528BA5F6D00C8DA7D /* XCResultKitTest.swift in Sources */,
+				DC65F4B928F3AA880011DACD /* DetailsFile.swift in Sources */,
+				DC65F4B528F204E50011DACD /* TestExecutor.swift in Sources */,
+				DC65F4B728F320D10011DACD /* TestSummary.swift in Sources */,
+				DC65F4B328F200750011DACD /* TestInfo.swift in Sources */,
 				DCDF42FB28CEC48200D27665 /* DerivedData.swift in Sources */,
 				DCDF42F728CE5E1C00D27665 /* XcodeBuild.swift in Sources */,
 				DC93435328CE3FD2002DAF94 /* Execute.swift in Sources */,

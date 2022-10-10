@@ -9,6 +9,8 @@ DerivedData/
 chute_output/
 releases/
 .env
+tmp/
+out/
 
 ## Various settings
 *.pbxuser
