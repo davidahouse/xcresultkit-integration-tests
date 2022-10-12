@@ -20,6 +20,7 @@ struct TestInfo {
     let expectedSuccessfulTests: Int
     let expectedFailedTests: Int
     let expectedSkippedTests: Int
+    let expectedExpectedFailedTests: Int
     
     func writeDetails(using file: DetailsFile) {
         file.writeLine(" Repo URL: \(repoURL)")
@@ -31,6 +32,7 @@ struct TestInfo {
         file.writeLine(" Expected Successful Tests: \(expectedSuccessfulTests)")
         file.writeLine(" Expected Failed Tests: \(expectedFailedTests)")
         file.writeLine(" Expected Skipped Tests: \(expectedSkippedTests)")
+        file.writeLine(" Expected Expected Failed Tests: \(expectedExpectedFailedTests)")
         file.writeLine(" ")
     }
 }
