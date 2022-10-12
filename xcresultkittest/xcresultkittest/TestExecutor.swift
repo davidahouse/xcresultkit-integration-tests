@@ -200,6 +200,19 @@ class TestExecutor {
         }
         print("Expected \(info.expectedSkippedTests) skipped tests, and found them!")
         
+
+        var attachmentCount = 0
+        for details in testSummary.testDetails {
+            for asummary in details.activitySummaries {
+                attachmentCount += asummary.attachments.count
+            }
+        }
+        guard info.expectedAttachments == attachmentCount else {
+            print("Expected \(info.expectedAttachments) attachments, but found \(attachmentCount)!")
+            throw TestExecutorError.expectedFailure
+        }
+        print("Expected \(info.expectedAttachments) attachments, and found them!")
+        
         print("Expected values match, overall test has passed!")
     }
 }
