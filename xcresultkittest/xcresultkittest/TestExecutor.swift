@@ -183,15 +183,36 @@ class TestExecutor {
         print("Expected \(info.expectedSuccessfulTests) successful tests, and found them!")
         
         guard info.expectedFailedTests == testSummary.failedTests.count else {
-            print("Expected \(info.expectedFailedTests) successful tests, but found \(testSummary.failedTests.count)!")
+            print("Expected \(info.expectedFailedTests) failed tests, but found \(testSummary.failedTests.count)!")
             throw TestExecutorError.expectedFailure
         }
         print("Expected \(info.expectedFailedTests) failed tests, and found them!")
 
+        guard info.expectedExpectedFailedTests == testSummary.expectedFailureTests.count else {
+            print("Expected \(info.expectedExpectedFailedTests) expected failed tests, but found \(testSummary.expectedFailureTests.count)!")
+            throw TestExecutorError.expectedFailure
+        }
+        print("Expected \(info.expectedFailedTests) expected failed tests, and found them!")
+        
         guard info.expectedSkippedTests == testSummary.skippedTests.count else {
             print("Expected \(info.expectedSkippedTests) successful tests, but found \(testSummary.skippedTests.count)!")
             throw TestExecutorError.expectedFailure
         }
         print("Expected \(info.expectedSkippedTests) skipped tests, and found them!")
+        
+
+        var attachmentCount = 0
+        for details in testSummary.testDetails {
+            for asummary in details.activitySummaries {
+                attachmentCount += asummary.attachments.count
+            }
+        }
+        guard info.expectedAttachments == attachmentCount else {
+            print("Expected \(info.expectedAttachments) attachments, but found \(attachmentCount)!")
+            throw TestExecutorError.expectedFailure
+        }
+        print("Expected \(info.expectedAttachments) attachments, and found them!")
+        
+        print("Expected values match, overall test has passed!")
     }
 }

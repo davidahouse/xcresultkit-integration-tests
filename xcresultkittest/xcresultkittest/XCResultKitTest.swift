@@ -38,7 +38,9 @@ struct MainApp {
                      platform: "iOS Simulator,name=iPhone 13",
                      expectedSuccessfulTests: 108,
                      expectedFailedTests: 0,
-                     expectedSkippedTests: 0
+                     expectedSkippedTests: 0,
+                     expectedExpectedFailedTests: 0,
+                     expectedAttachments: 212
                     ),
             TestInfo(name: "XCTestExamples",
                      repoURL: URL(string: "git@github.com:davidahouse/XCTestExamples.git")!,
@@ -47,9 +49,12 @@ struct MainApp {
                      scheme: "XCTestExamples",
                      configuration: nil,
                      platform: "iOS Simulator,name=iPhone 13",
-                     expectedSuccessfulTests: 6,
+                     expectedSuccessfulTests: 8,
                      expectedFailedTests: 2,
-                     expectedSkippedTests: 1)
+                     expectedSkippedTests: 1,
+                     expectedExpectedFailedTests: 1,
+                     expectedAttachments: 4
+                    )
         ]
         
         print("--- Found \(tests.count) tests to execute ---")

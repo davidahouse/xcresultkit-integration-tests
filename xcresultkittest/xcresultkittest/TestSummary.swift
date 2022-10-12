@@ -13,6 +13,9 @@ class TestSummary {
     var successfulTests: [ActionTestMetadata] = []
     var failedTests: [ActionTestMetadata] = []
     var skippedTests: [ActionTestMetadata] = []
+    var expectedFailureTests: [ActionTestMetadata] = []
+    var failureMessages: [TestFailureIssueSummary] = []
+    var testDetails: [ActionTestSummary] = []
     
     func gatherSummary(from result: XCResultFile) {
         
@@ -39,10 +42,20 @@ class TestSummary {
 
         for test in tests {
             print("-> \(test.summaryRef?.id ?? "") \(String(describing: test.name)) \(String(describing: test.identifier)) \(test.testStatus)")
+            print("  \(String(describing: test.activitySummariesCount)) \(String(describing: test.failureSummariesCount)) \(String(describing: test.performanceMetricsCount))")
+            if let testID = test.summaryRef?.id {
+                if let testSummary = result.getActionTestSummary(id: testID) {
+                    testDetails.append(testSummary)
+                }
+            }
         }
         
         successfulTests = tests.filter { $0.testStatus == "Success" }
-        failedTests = tests.filter { $0.testStatus != "Success" }
+        failedTests = tests.filter { $0.testStatus == "Failure" }
+        skippedTests = tests.filter { $0.testStatus == "Skipped" }
+        expectedFailureTests = tests.filter { $0.testStatus == "Expected Failure"}
+        
+        failureMessages = invocationRecord.issues.testFailureSummaries
     }
     
     private func gatherTests(summaries: [ActionTestPlanRunSummary]) -> [ActionTestMetadata] {
@@ -85,10 +98,24 @@ class TestSummary {
         }
 
         file.writeLine(" ")
+        file.writeLine("## Expected Failure Tests")
+        file.writeLine(" ")
+        for test in expectedFailureTests {
+            file.writeLine("- \(String(describing: test.identifier)) \(test.duration ?? 0)s")
+        }
+
+        file.writeLine(" ")
         file.writeLine("## Skipped Tests")
         file.writeLine(" ")
         for test in skippedTests {
             file.writeLine("- \(String(describing: test.identifier)) \(test.duration ?? 0)s")
+        }
+        
+        file.writeLine(" ")
+        file.writeLine("## Failure Messages")
+        file.writeLine(" ")
+        for issue in failureMessages {
+            file.writeLine("- \(issue.testCaseName) \(issue.issueType) \(issue.message)")
         }
     }
 }
